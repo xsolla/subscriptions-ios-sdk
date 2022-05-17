@@ -1,0 +1,545 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6 (swiftlang-5.6.0.323.62 clang-1316.0.20.8)
+// swift-module-flags: -target x86_64-apple-ios11.4-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name SubscriptionsKit
+import Foundation
+@_exported import SubscriptionsKit
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+public struct Subscriptions {
+  public let items: [Subscriptions.Subscription]
+  public let hasMore: Swift.Bool
+  public struct Subscription {
+    public let id: Swift.Int
+    public let planId: Swift.Int
+    public let planExternalId: Swift.String
+    public let planName: Swift.String
+    public let planDescription: Swift.String
+    public let planStartDate: Foundation.Date?
+    public let planEndDate: Foundation.Date?
+    public let productId: Swift.Int?
+    public let productExternalId: Swift.String?
+    public let productName: Swift.String?
+    public let productDescription: Swift.String?
+    public let status: Swift.String
+    public let isInTrial: Swift.Bool
+    public let trialPeriod: Swift.Int?
+    public let dateCreate: Foundation.Date
+    public let dateNextCharge: Foundation.Date?
+    public let dateLastCharge: Foundation.Date?
+    public let charge: SubscriptionCharge
+    public let period: Period
+  }
+}
+extension SubscriptionsKit {
+  public static let version: Swift.String
+}
+public struct Charge {
+  public let amount: Swift.Float
+  public let setupFee: Swift.Float?
+  public let currency: Swift.String
+}
+public struct SubscriptionCharge {
+  public let amount: Swift.Float
+  public let amountWithPromotion: Swift.Float?
+  public let currency: Swift.String
+}
+public struct Promotion {
+  public let promotionChargeAmount: Swift.Float?
+  public let promotionRemainingCharges: Swift.Int?
+}
+@_hasMissingDesignatedInitializers final public class SubscriptionsKit {
+  public static let shared: SubscriptionsKit
+  @objc deinit
+}
+extension SubscriptionsKit {
+  final public func getSubscriptionPublicPlans(projectId: Swift.Int, planId: [Swift.Int]? = nil, planExternalId: [Swift.Int]? = nil, limit: Swift.Int? = nil, offset: Swift.Int? = nil, locale: Swift.String? = nil, country: Swift.String? = nil, completion: @escaping (Swift.Result<SubscriptionPlans, Swift.Error>) -> Swift.Void)
+  final public func getSubscriptionPlans(accessToken: Swift.String, projectId: Swift.Int, planId: [Swift.Int]? = nil, planExternalId: [Swift.Int]? = nil, limit: Swift.Int? = nil, offset: Swift.Int? = nil, locale: Swift.String? = nil, country: Swift.String? = nil, completion: @escaping (Swift.Result<SubscriptionPlans, Swift.Error>) -> Swift.Void)
+  final public func getSubscriptions(accessToken: Swift.String, projectId: Swift.Int, limit: Swift.Int? = nil, offset: Swift.Int? = nil, locale: Swift.String? = nil, completion: @escaping (Swift.Result<Subscriptions, Swift.Error>) -> Swift.Void)
+  final public func getSubscriptionDetails(accessToken: Swift.String, projectId: Swift.Int, subscriptionId: Swift.String, locale: Swift.String? = nil, completion: @escaping (Swift.Result<SubscriptionDetails, Swift.Error>) -> Swift.Void)
+  final public func cancelSubscription(accessToken: Swift.String, projectId: Swift.Int, subscriptionId: Swift.String, completion: @escaping (Swift.Result<Swift.Void, Swift.Error>) -> Swift.Void)
+  final public func getSubscriptionRenewalUrl(accessToken: Swift.String, projectId: Swift.Int, subscriptionId: Swift.String, completion: @escaping (Swift.Result<PaystationUrl, Swift.Error>) -> Swift.Void)
+  final public func getSubscriptionPurchaseUrl(accessToken: Swift.String, projectId: Swift.Int, planExternalId: Swift.String, country: Swift.String? = nil, paystationSettings: PaystationSettings? = nil, completion: @escaping (Swift.Result<PaystationUrl, Swift.Error>) -> Swift.Void)
+  final public func getSubscriptionManagementUrl(accessToken: Swift.String, projectId: Swift.Int, country: Swift.String? = nil, completion: @escaping (Swift.Result<PaystationUrl, Swift.Error>) -> Swift.Void)
+}
+public struct GetSubscriptionDetailsResponse : Swift.Decodable {
+  public enum CodingKeys : Swift.String, Swift.CodingKey {
+    case id
+    case planId
+    case planExternalId
+    case planName
+    case planDescription
+    case planStartDate
+    case planEndDate
+    case productId
+    case productExternalId
+    case productName
+    case productDescription
+    case status
+    case isInTrial
+    case trialPeriod
+    case dateCreate
+    case dateNextCharge
+    case dateLastCharge
+    case dateEnd
+    case charge
+    case period
+    case isRenewPossible
+    case isChangeToNonRenewPossible
+    case isChangePlanAllowed
+    public init?(rawValue: Swift.String)
+    public init?(stringValue: Swift.String)
+    public init?(intValue: Swift.Int)
+    public typealias RawValue = Swift.String
+    public var intValue: Swift.Int? {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+    public var stringValue: Swift.String {
+      get
+    }
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct SubscriptionPlans {
+  public let items: [SubscriptionPlans.Plan]
+  public let hasMore: Swift.Bool
+  public struct Plan {
+    public let planId: Swift.Int
+    public let planExternalId: Swift.String
+    public let planGroupId: Swift.String?
+    public let planType: Swift.String
+    public let planName: Swift.String
+    public let planDescription: Swift.String
+    public let planStartDate: Foundation.Date?
+    public let planEndDate: Foundation.Date?
+    public let trialPeriod: Swift.Int?
+    public let period: Period
+    public let charge: Charge
+    public let promotion: Promotion
+  }
+}
+public struct UrlToPaystationResponse : Swift.Decodable {
+  public var url: Swift.String
+  public init(url: Swift.String)
+  public enum CodingKeys : Swift.String, Swift.CodingKey {
+    case url
+    public init?(rawValue: Swift.String)
+    public init?(stringValue: Swift.String)
+    public init?(intValue: Swift.Int)
+    public typealias RawValue = Swift.String
+    public var intValue: Swift.Int? {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+    public var stringValue: Swift.String {
+      get
+    }
+  }
+  public init(from decoder: Swift.Decoder) throws
+}
+public typealias PaystationUrl = Swift.String
+public struct PaystationSettings : Swift.Codable {
+  public var sandbox: Swift.Bool?
+  public var ui: PaystationSettings.UI?
+  public var currency: Swift.String?
+  public var locale: Swift.String?
+  public var externalId: Swift.String?
+  public var paymentMethod: Swift.Int?
+  public var returnUrl: Swift.String?
+  public var redirectPolicy: PaystationSettings.RedirectPolicy?
+  public init(sandbox: Swift.Bool? = nil, ui: PaystationSettings.UI? = nil, currency: Swift.String? = nil, locale: Swift.String? = nil, externalId: Swift.String? = nil, paymentMethod: Swift.Int? = nil, returnUrl: Swift.String? = nil, redirectPolicy: PaystationSettings.RedirectPolicy? = nil)
+  public enum CodingKeys : Swift.String, Swift.CodingKey {
+    case sandbox
+    case ui
+    case currency
+    case locale
+    case externalId
+    case paymentMethod
+    case returnUrl
+    case redirectPolicy
+    public init?(rawValue: Swift.String)
+    public init?(stringValue: Swift.String)
+    public init?(intValue: Swift.Int)
+    public typealias RawValue = Swift.String
+    public var intValue: Swift.Int? {
+      get
+    }
+    public var rawValue: Swift.String {
+      get
+    }
+    public var stringValue: Swift.String {
+      get
+    }
+  }
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+extension PaystationSettings {
+  public struct UI : Swift.Codable {
+    public var size: PaystationSettings.UI.Size?
+    public var theme: Swift.String?
+    public var version: PaystationSettings.UI.Version?
+    public var desktop: PaystationSettings.UI.Desktop?
+    public var mobile: PaystationSettings.UI.Mobile?
+    public var licenseUrl: Swift.String?
+    public var mode: PaystationSettings.UI.Mode?
+    public var userAccount: PaystationSettings.UI.UserAccount?
+    public init(size: PaystationSettings.UI.Size? = nil, theme: Swift.String? = nil, version: PaystationSettings.UI.Version? = nil, desktop: PaystationSettings.UI.Desktop? = nil, mobile: PaystationSettings.UI.Mobile? = nil, licenseUrl: Swift.String? = nil, mode: PaystationSettings.UI.Mode? = nil, userAccount: PaystationSettings.UI.UserAccount? = nil)
+    public enum CodingKeys : Swift.String, Swift.CodingKey {
+      case size
+      case theme
+      case version
+      case desktop
+      case mobile
+      case licenseUrl
+      case mode
+      case userAccount
+      public init?(rawValue: Swift.String)
+      public init?(stringValue: Swift.String)
+      public init?(intValue: Swift.Int)
+      public typealias RawValue = Swift.String
+      public var intValue: Swift.Int? {
+        get
+      }
+      public var rawValue: Swift.String {
+        get
+      }
+      public var stringValue: Swift.String {
+        get
+      }
+    }
+    public enum Size : Swift.String, Swift.Codable {
+      case large
+      case medium
+      case small
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum Version : Swift.String, Swift.Codable {
+      case desktop
+      case mobile
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum Mode : Swift.String, Swift.Codable {
+      case userAccount
+      case withoutPurchase
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+}
+extension PaystationSettings.UI {
+  public struct Desktop : Swift.Codable {
+    public var header: PaystationSettings.UI.Header?
+    public init(header: PaystationSettings.UI.Header? = nil)
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+  public struct Header : Swift.Codable {
+    public var isVisible: Swift.Bool?
+    public var visibleLogo: Swift.Bool?
+    public var visibleName: Swift.Bool?
+    public var type: PaystationSettings.UI.Header.ModelType?
+    public var closeButton: Swift.Bool?
+    public init(isVisible: Swift.Bool? = nil, visibleLogo: Swift.Bool? = nil, visibleName: Swift.Bool? = nil, type: PaystationSettings.UI.Header.ModelType? = nil, closeButton: Swift.Bool? = nil)
+    public enum CodingKeys : Swift.String, Swift.CodingKey {
+      case isVisible
+      case visibleLogo
+      case visibleName
+      case type
+      case closeButton
+      public init?(rawValue: Swift.String)
+      public init?(stringValue: Swift.String)
+      public init?(intValue: Swift.Int)
+      public typealias RawValue = Swift.String
+      public var intValue: Swift.Int? {
+        get
+      }
+      public var rawValue: Swift.String {
+        get
+      }
+      public var stringValue: Swift.String {
+        get
+      }
+    }
+    public enum ModelType : Swift.String, Swift.Codable {
+      case compact
+      case normal
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+}
+extension PaystationSettings.UI {
+  public struct Mobile : Swift.Codable {
+    public var mode: PaystationSettings.UI.Mobile.Mode?
+    public var footer: PaystationSettings.UI.Mobile.Footer?
+    public var header: PaystationSettings.UI.Mobile.Header?
+    public init(mode: PaystationSettings.UI.Mobile.Mode? = nil, footer: PaystationSettings.UI.Mobile.Footer? = nil, header: PaystationSettings.UI.Mobile.Header? = nil)
+    public enum Mode : Swift.String, Swift.Codable {
+      case savedAccounts
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public struct Footer : Swift.Codable {
+      public var isVisible: Swift.Bool?
+      public init(isVisible: Swift.Bool? = nil)
+      public enum CodingKeys : Swift.String, Swift.CodingKey {
+        case isVisible
+        public init?(rawValue: Swift.String)
+        public init?(stringValue: Swift.String)
+        public init?(intValue: Swift.Int)
+        public typealias RawValue = Swift.String
+        public var intValue: Swift.Int? {
+          get
+        }
+        public var rawValue: Swift.String {
+          get
+        }
+        public var stringValue: Swift.String {
+          get
+        }
+      }
+      public func encode(to encoder: Swift.Encoder) throws
+      public init(from decoder: Swift.Decoder) throws
+    }
+    public struct Header : Swift.Codable {
+      public var closeButton: Swift.Bool?
+      public init(closeButton: Swift.Bool? = nil)
+      public enum CodingKeys : Swift.String, Swift.CodingKey {
+        case closeButton
+        public init?(rawValue: Swift.String)
+        public init?(stringValue: Swift.String)
+        public init?(intValue: Swift.Int)
+        public typealias RawValue = Swift.String
+        public var intValue: Swift.Int? {
+          get
+        }
+        public var rawValue: Swift.String {
+          get
+        }
+        public var stringValue: Swift.String {
+          get
+        }
+      }
+      public func encode(to encoder: Swift.Encoder) throws
+      public init(from decoder: Swift.Decoder) throws
+    }
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+}
+extension PaystationSettings.UI {
+  public struct UserAccount : Swift.Codable {
+    public var history: PaystationSettings.UI.UserAccount.History?
+    public var paymentAccounts: PaystationSettings.UI.UserAccount.PaymentAccounts?
+    public var info: PaystationSettings.UI.Info?
+    public var subscriptions: PaystationSettings.UI.UserAccount.Subscriptions?
+    public init(history: PaystationSettings.UI.UserAccount.History? = nil, paymentAccounts: PaystationSettings.UI.UserAccount.PaymentAccounts? = nil, info: PaystationSettings.UI.Info? = nil, subscriptions: PaystationSettings.UI.UserAccount.Subscriptions? = nil)
+    public enum CodingKeys : Swift.String, Swift.CodingKey {
+      case history
+      case paymentAccounts
+      case info
+      case subscriptions
+      public init?(rawValue: Swift.String)
+      public init?(stringValue: Swift.String)
+      public init?(intValue: Swift.Int)
+      public typealias RawValue = Swift.String
+      public var intValue: Swift.Int? {
+        get
+      }
+      public var rawValue: Swift.String {
+        get
+      }
+      public var stringValue: Swift.String {
+        get
+      }
+    }
+    public struct History : Swift.Codable {
+      public var enable: Swift.Bool?
+      public var order: Swift.Int?
+      public init(enable: Swift.Bool? = nil, order: Swift.Int? = nil)
+      public func encode(to encoder: Swift.Encoder) throws
+      public init(from decoder: Swift.Decoder) throws
+    }
+    public struct PaymentAccounts : Swift.Codable {
+      public var enable: Swift.Bool?
+      public var order: Swift.Int?
+      public init(enable: Swift.Bool? = nil, order: Swift.Int? = nil)
+      public func encode(to encoder: Swift.Encoder) throws
+      public init(from decoder: Swift.Decoder) throws
+    }
+    public struct Subscriptions : Swift.Codable {
+      public var enable: Swift.Bool?
+      public var order: Swift.Int?
+      public init(enable: Swift.Bool? = nil, order: Swift.Int? = nil)
+      public func encode(to encoder: Swift.Encoder) throws
+      public init(from decoder: Swift.Decoder) throws
+    }
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+  public struct Info : Swift.Codable {
+    public var enable: Swift.Bool?
+    public var order: Swift.Int?
+    public init(enable: Swift.Bool? = nil, order: Swift.Int? = nil)
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+}
+extension PaystationSettings {
+  public struct RedirectPolicy : Swift.Codable {
+    public var redirectConditions: PaystationSettings.RedirectPolicy.RedirectConditions?
+    public var delay: Swift.Int?
+    public var statusForManualRedirection: PaystationSettings.RedirectPolicy.StatusForManualRedirection?
+    public var redirectButtonCaption: Swift.String?
+    public init(redirectConditions: PaystationSettings.RedirectPolicy.RedirectConditions? = nil, delay: Swift.Int? = nil, statusForManualRedirection: PaystationSettings.RedirectPolicy.StatusForManualRedirection? = nil, redirectButtonCaption: Swift.String? = nil)
+    public enum CodingKeys : Swift.String, Swift.CodingKey {
+      case redirectConditions
+      case delay
+      case statusForManualRedirection
+      case redirectButtonCaption
+      public init?(rawValue: Swift.String)
+      public init?(stringValue: Swift.String)
+      public init?(intValue: Swift.Int)
+      public typealias RawValue = Swift.String
+      public var intValue: Swift.Int? {
+        get
+      }
+      public var rawValue: Swift.String {
+        get
+      }
+      public var stringValue: Swift.String {
+        get
+      }
+    }
+    public enum RedirectConditions : Swift.String, Swift.Codable {
+      case none
+      case successful
+      case successfulOrCanceled
+      case any
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum StatusForManualRedirection : Swift.String, Swift.Codable {
+      case none
+      case vc
+      case successful
+      case successfulOrCanceled
+      case any
+      public init?(rawValue: Swift.String)
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+}
+public struct Period {
+  public let value: Swift.Int
+  public let unit: Swift.String
+}
+public struct SubscriptionDetails {
+  public let id: Swift.Int
+  public let planId: Swift.Int
+  public let planExternalId: Swift.String
+  public let planName: Swift.String
+  public let planDescription: Swift.String
+  public let planStartDate: Foundation.Date?
+  public let planEndDate: Foundation.Date?
+  public let productId: Swift.Int?
+  public let productExternalId: Swift.String?
+  public let productName: Swift.String?
+  public let productDescription: Swift.String?
+  public let status: Swift.String
+  public let isInTrial: Swift.Bool
+  public let trialPeriod: Swift.Int?
+  public let dateCreate: Foundation.Date
+  public let dateNextCharge: Foundation.Date?
+  public let dateLastCharge: Foundation.Date?
+  public let dateEnd: Foundation.Date?
+  public let charge: SubscriptionCharge
+  public let period: Period
+  public let isRenewPossible: Swift.Bool
+  public let isChangeToNonRenewPossible: Swift.Bool
+  public let isChangePlanAllowed: Swift.Bool
+}
+extension GetSubscriptionDetailsResponse.CodingKeys : Swift.Equatable {}
+extension GetSubscriptionDetailsResponse.CodingKeys : Swift.Hashable {}
+extension GetSubscriptionDetailsResponse.CodingKeys : Swift.RawRepresentable {}
+extension UrlToPaystationResponse.CodingKeys : Swift.Equatable {}
+extension UrlToPaystationResponse.CodingKeys : Swift.Hashable {}
+extension UrlToPaystationResponse.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.UI.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.UI.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.UI.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Size : Swift.Equatable {}
+extension PaystationSettings.UI.Size : Swift.Hashable {}
+extension PaystationSettings.UI.Size : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Version : Swift.Equatable {}
+extension PaystationSettings.UI.Version : Swift.Hashable {}
+extension PaystationSettings.UI.Version : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Mode : Swift.Equatable {}
+extension PaystationSettings.UI.Mode : Swift.Hashable {}
+extension PaystationSettings.UI.Mode : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Header.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.UI.Header.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.UI.Header.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Header.ModelType : Swift.Equatable {}
+extension PaystationSettings.UI.Header.ModelType : Swift.Hashable {}
+extension PaystationSettings.UI.Header.ModelType : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Mobile.Mode : Swift.Equatable {}
+extension PaystationSettings.UI.Mobile.Mode : Swift.Hashable {}
+extension PaystationSettings.UI.Mobile.Mode : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Mobile.Footer.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.UI.Mobile.Footer.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.UI.Mobile.Footer.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.UI.Mobile.Header.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.UI.Mobile.Header.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.UI.Mobile.Header.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.UI.UserAccount.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.UI.UserAccount.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.UI.UserAccount.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.RedirectPolicy.CodingKeys : Swift.Equatable {}
+extension PaystationSettings.RedirectPolicy.CodingKeys : Swift.Hashable {}
+extension PaystationSettings.RedirectPolicy.CodingKeys : Swift.RawRepresentable {}
+extension PaystationSettings.RedirectPolicy.RedirectConditions : Swift.Equatable {}
+extension PaystationSettings.RedirectPolicy.RedirectConditions : Swift.Hashable {}
+extension PaystationSettings.RedirectPolicy.RedirectConditions : Swift.RawRepresentable {}
+extension PaystationSettings.RedirectPolicy.StatusForManualRedirection : Swift.Equatable {}
+extension PaystationSettings.RedirectPolicy.StatusForManualRedirection : Swift.Hashable {}
+extension PaystationSettings.RedirectPolicy.StatusForManualRedirection : Swift.RawRepresentable {}

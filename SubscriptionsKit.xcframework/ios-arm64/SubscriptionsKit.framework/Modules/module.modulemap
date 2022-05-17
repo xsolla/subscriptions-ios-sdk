@@ -1,0 +1,11 @@
+framework module SubscriptionsKit {
+  umbrella header "SubscriptionsKit.h"
+
+  export *
+  module * { export * }
+}
+
+module SubscriptionsKit.Swift {
+    header "SubscriptionsKit-Swift.h"
+    requires objc
+}
