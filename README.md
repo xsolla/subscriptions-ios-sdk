@@ -1,4 +1,4 @@
-The Subscriptions library is used to integrate applications based on Android with [Subscriptions](https://developers.xsolla.com/doc/subscriptions/). You should use [Xsolla Login](https://developers.xsolla.com/doc/login/) for user authorization.
+The Subscriptions library is used to integrate applications based on IOS with [Subscriptions](https://developers.xsolla.com/doc/subscriptions/). You should use [Xsolla Login](https://developers.xsolla.com/doc/login/) for user authorization.
 
 Main features:
 
